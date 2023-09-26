@@ -1,0 +1,13 @@
+%% 2.2.1
+figure(1);
+plot(tout, whref, tout, wh);
+
+figure(2);
+plot(tout,vp);
+title
+yline(24);
+yline(-24);
+
+%% 2.2.2
+
+
