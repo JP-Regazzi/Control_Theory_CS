@@ -19,7 +19,6 @@ yline(24);
 yline(-24);
 
 %% 3.2.3
-
 figure(3);
 plot(temps, theta);
 title("Free response \theta(0)=30°")
@@ -31,7 +30,6 @@ grid("on")
 %(foi para o init)
 
 %% 3.2.5
-
 A = [0 1;-Mb*g*Dm/Jp -Dp/Jp];
 B = [0; Dt/Jp];
 C = [1 0];
@@ -50,3 +48,7 @@ xlabel("time[s]")
 ylabel("theta[rad]")
 legend("Model response","Real response")
 grid("on")
+
+%% 4.2.2
+Qc = [B, A*B]
+rank(Qc)
