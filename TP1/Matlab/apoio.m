@@ -1,5 +1,5 @@
 %% 2.2.1
-sim('Model_Name',Simulation_Time)
+sim('inicio_do_sistema')
 
 figure(1);
 plot(tout, whref, tout, wh);
