@@ -35,8 +35,7 @@ Am = [-1/tau 0; 1 0];
 B1m = [Kv/tau ; 0]; 
 B2m = [0 ; -1]; 
 Bm = [B1m, B2m];
-Cm = [1 0;0 1]; 
-Dm = [0 0;0 0]; 
+Cm = [1 0]; 
 
 % Retour d'état (2.2.1)
 xi = 0.7;
@@ -47,7 +46,7 @@ Ka = place(Am, B1m, p); % Gain du retour d'état, vecteur (1x2) à calculer avec
 Kw = Ka(1); % Gain pour la vitesse, x1 = wh
 Kz = Ka(2); % Gain pour l'action intégrale, w2 = z 
 
-sysm=ss(Am-B1*Kam,Bm,Cm,Dm);
+sysm=ss(Am-B1m*Ka,Bm,Cm,Dm);
 ym=step(sysm);
 
 %------------------------------------------------------------------------

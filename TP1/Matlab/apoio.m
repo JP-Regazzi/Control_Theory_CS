@@ -3,7 +3,7 @@ sim('inicio_do_sistema')
 
 figure(1);
 plot(tout, whref, tout, wh);
-title("wh e wh,ref")
+title("wh and wh,ref")
 legend("wh,ref", "wh")
 xlabel("time[s]")
 ylabel("w[rads/s]")
@@ -11,7 +11,10 @@ grid("on")
 
 figure(2);
 plot(tout,vp);
-
+title("vp limits analyses")
+xlabel("time[s]")
+ylabel("vp[V]")
+grid("on")
 yline(24);
 yline(-24);
 
