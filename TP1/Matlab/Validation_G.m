@@ -23,22 +23,54 @@ mod_G = tf(Kv,[tau 1]);
 
 % Simulation du modèle "mod_G" avec "cmd_vp" comme vecteur d'éntrée et le vecteur "temps" 
 omega_mod = lsim(mod_G,cmd_vp,temps);
+ 
+%{
 
-% Affichage de la sortie mesurée "omega" et la sortie simulée "omega_mod" 
+figure(1)
+clf
+plot(temps,omega,'b','LineWidth',2);
+hold on
+grid on
+title('Measured vs Modeled Speeds, 6V Input Step')
+legend('measure')
+xlabel('Time (s)')
+ylabel('Speed (rad/s)')
+
 figure(2)
 clf
-plot(temps,omega75,'b','LineWidth',2);
+plot(temps,omega,'b','LineWidth',2);
 hold on
-plot(temps,omega_mod75,'r','LineWidth',2);
+plot(temps,omega_mod,'r','LineWidth',2);
 grid on
-%axis([0 3 -10 200]) % zoom sur la figure [xmin xmax ymin ymax]
-title('Reponse en vitesse du moteur')
-legend('mesure','modèle')
-xlabel('Temps (s)')
-ylabel('Vitesse (rad/s)')
- 
- 
+title('Measured vs Modeled Speeds, 6V Input Step')
+legend('measure','model')
+xlabel('Time (s)')
+ylabel('Speed (rad/s)')
 
- 
- 
+figure(3)
+clf
+time_cropped = temps(1:701);
+plot(time_cropped,omega25,'b','LineWidth',2);
+hold on
+plot(time_cropped,omega_mod25,'r','LineWidth',2);
+grid on
+title('Measured vs Modeled Speeds, 2.5V Input Step')
+legend('measure','model')
+xlabel('Time (s)')
+ylabel('Speed (rad/s)')
+
+%}
+
+% Affichage de la sortie mesurée "omega" et la sortie simulée "omega_mod"
+% Figure other omegas 
+
+figure(1)
+clf
+plot(temps,omega,'b','LineWidth',2);
+hold on
+grid on
+title('Motor Response Speed, 6V Input Step')
+legend('measure')
+xlabel('Time (s)')
+ylabel('Speed (rad/s)')
  
