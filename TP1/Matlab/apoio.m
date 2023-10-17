@@ -1,4 +1,6 @@
 %% 2.2.1
+sim('Model_Name',Simulation_Time)
+
 figure(1);
 plot(tout, whref, tout, wh);
 title("wh e wh,ref")
