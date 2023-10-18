@@ -52,3 +52,13 @@ grid("on")
 %% 4.2.2
 Qc = [B, A*B]
 rank(Qc)
+
+%% 4.2.3
+run("InitCommande_Aero")
+%Te1 = 0.05;
+sim("SimulateurNL_AERO_Cmd_LQ")
+
+%% 4.2.4
+run("InitCommande_Aero")
+Te1 = 0.05;
+sim("SimulateurNL_AERO_Cmd_LQI")

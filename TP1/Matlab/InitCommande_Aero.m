@@ -68,8 +68,8 @@ ym=step(sysm);
 %------------------------------------------------------------------------
 %------------------------------------------------------------------------
 omega_h = [-250 -200 -150 150 200 250]; % position theta en radians
-theta_h = []; % position theta en radians à compléter
-FO_f = []; % à compléter
+theta_h = [-39.9 -24.79 -12.83 16 28.3 56.07]; % position theta en radians à compléter MUDAR DEPOISSS ###########################################
+F0_h = Mb*g*Dm/Dt*sin(theta_h*pi/180); % à compléter 
 Kt = 0.001; % à compléter MUDAR DEPOISSS ###########################################
 
 %------------------------------------------------------------------------
@@ -101,19 +101,63 @@ A = [0 1;-Mb*g*Dm/Jp -Dp/Jp];
 B = [0; Dt*Kt/Jp];
 C = [1 0];
 D = 0;
+sys = ss(A, B, C, D);
 
 %------------------------------------------------------------------------
 % Commande LQ
 %------------------------------------------------------------------------
 Te2 = 0.02; % 20ms
+%Te1 = 0.05;
+% intermediaires
+theta_max = pi/4;
+omega_h_max=500;
+q=7; % define here the weight
+Q=C.'*q/theta_max^2*C;
+R=1/omega_h_max^2;
+
 % retour d'état
-K_lq = [];  % Gain du retour d'état, vecteur (1x2)
-M_lq = []; % Gain pour la référence (1x1)
+K_lq = lqr(A,B,Q,R);  % Gain du retour d'état, vecteur (1x2)
+M_lq = -(C*(A-B*K_lq)^-1*B)^-1;  % Gain pour la référence (1x1)
+
+% cleaning space
+clear theta_max
+clear omega_h_max 
+clear zi_max
+clear q 
+clear Q
+clear R
 
 %------------------------------------------------------------------------
 % Commande LQI
 %------------------------------------------------------------------------
-K_lqi = [];  % Gain du retour d'état avec action intégrale, vecteur (1x3)
+%% steady state
+Aa = [A [0;0];1 0 0];
+B1a = [B;0];
+B2a = [0;0;-1];
+Ca = [1 0 0;0 0 1];
+Da = [0;0];
+
+% intermediaires
+theta_max = pi/4;
+omega_h_max=500;
+zi_max = 0.15;
+q=4; % define here the weight
+z=1; % define here the weight
+r=1; % define here the weight
+Qn=[1/theta_max 0;0 1/zi_max];
+Q=Ca.'*Qn*[q 0;0 z]*Qn*Ca;
+R=r/omega_h_max^2;
+
+
+K_lqi = lqr(Aa, B1a, Q, R);  % Gain du retour d'état avec action intégrale, vecteur (1x3)
+
+% cleaning space
+clear theta_max
+clear omega_h_max 
+clear zi_max
+clear q z r
+clear Q Qn
+clear R
 
 %------------------------------------------------------------------------
 % Observateur
