@@ -163,10 +163,18 @@ clear R
 % Observateur
 %------------------------------------------------------------------------
 
-Asys = [];% Matrice A modèle linéaire (dynamique)
-Bsys = [];% Matrice B modèle linéaire (de Commande)
-Csys = [];% Matrice C du modèle linéaire (de Sortie)
-L = [];% Gain de l'observateur
+% poles
+xi2 = 0.9;
+w02 = 15;
+p = [w02*(-xi2-1i*sqrt(1-xi2^2)) w02*(-xi2+1i*sqrt(1-xi2^2))]';
+
+%Modele
+Asys = A;% Matrice A modèle linéaire (dynamique)
+Bsys = B;% Matrice B modèle linéaire (de Commande)
+Csys = C;% Matrice C du modèle linéaire (de Sortie)
+
+% Observateur Matrix
+L = place(Asys, Bsys, p); % Gain de l'observateur, vecteur (1x2) à calculer avec "place"
 
 %------------------------------------------------------------------------
 % Correcteur PID

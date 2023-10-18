@@ -55,10 +55,10 @@ rank(Qc)
 
 %% 4.2.3
 run("InitCommande_Aero")
-%Te1 = 0.05;
+Te1 = 0.0005;
 sim("SimulateurNL_AERO_Cmd_LQ")
 
 %% 4.2.4
 run("InitCommande_Aero")
-Te1 = 0.05;
+Te1 = 0.0005;
 sim("SimulateurNL_AERO_Cmd_LQI")
