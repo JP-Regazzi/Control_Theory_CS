@@ -9,7 +9,7 @@
  *
  * Model version              : 9.2
  * Simulink Coder version : 9.8 (R2022b) 13-May-2022
- * C source code generated on : Fri Sep 22 11:27:41 2023
+ * C source code generated on : Thu Oct 19 10:31:03 2023
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -445,5 +445,5 @@ P_Identification_F_T Identification_F_P = {
   /* Computed Parameter: ManualSwitch_CurrentSetting
    * Referenced by: '<Root>/Manual Switch'
    */
-  0U
+  1U
 };
