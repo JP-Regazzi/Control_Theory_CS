@@ -68,9 +68,9 @@ ym=step(sysm);
 %------------------------------------------------------------------------
 %------------------------------------------------------------------------
 omega_h = [-250 -200 -150 150 200 250]; % position theta en radians
-theta_h = [-39.9 -24.79 -12.83 16 28.3 56.07]; % position theta en radians à compléter MUDAR DEPOISSS ###########################################
+theta_h = [-27.7964 -17.4788 -10.2367 11.5001 20.7327 33.3521]; % position theta en radians à compléter
 F0_h = Mb*g*Dm/Dt*sin(theta_h*pi/180); % à compléter 
-Kt = 0.001; % à compléter MUDAR DEPOISSS ###########################################
+Kt =  omega_h.' \ F0_h.'; % à compléter
 
 %------------------------------------------------------------------------
 %
@@ -111,7 +111,7 @@ Te2 = 0.02; % 20ms
 % intermediaires
 theta_max = pi/4;
 omega_h_max=500;
-q=7; % define here the weight
+q= 7; % define here the weight
 Q=C.'*q/theta_max^2*C;
 R=1/omega_h_max^2;
 
@@ -141,8 +141,8 @@ Da = [0;0];
 theta_max = pi/4;
 omega_h_max=500;
 zi_max = 0.15;
-q=4; % define here the weight
-z=1; % define here the weight
+q=10; % define here the weight
+z=4; % define here the weight
 r=1; % define here the weight
 Qn=[1/theta_max 0;0 1/zi_max];
 Q=Ca.'*Qn*[q 0;0 z]*Qn*Ca;
@@ -174,7 +174,7 @@ Bsys = B;% Matrice B modèle linéaire (de Commande)
 Csys = C;% Matrice C du modèle linéaire (de Sortie)
 
 % Observateur Matrix
-L = place(Asys, Bsys, p); % Gain de l'observateur, vecteur (1x2) à calculer avec "place"
+L = place(Asys.', Csys.', p).'; % Gain de l'observateur, vecteur (1x2) à calculer avec "place"
 
 %------------------------------------------------------------------------
 % Correcteur PID
