@@ -1,14 +1,17 @@
 %% 2.2.1
-sim('inicio_do_sistema')
+sim('incio_do_sistema')
 
 figure(1);
-plot(tout, whref, tout, wh);
-title("wh and wh,ref")
-legend("wh,ref", "wh")
-xlabel("time[s]")
-ylabel("w[rads/s]")
+tout_new = tout - 1;
+plot(tout_new , whref, tout_new , wh);
+title("Speed vs Reference Signal")
+legend("\omega_{h}^{ref}", "\omega_{h}")
+xlabel("Time (s)")
+ylabel("\omega(rads/s)")
+xlim([0, 1])
 grid("on")
 
+%{
 figure(2);
 plot(tout,vp);
 title("vp limits analyses")
@@ -17,9 +20,44 @@ ylabel("vp[V]")
 grid("on")
 yline(24);
 yline(-24);
+%}
+
+%% 2.3.1AA
+figure(3)
+plot(temps, omega_ref, temps, omega);
+title("Speed vs Reference Signal")
+legend("\omega_{h}^{ref}", "\omega_{h}^{experiment}")
+xlabel("Time (s)")
+ylabel("\omega(rad/s)")
+xlim([0, 1])
+grid("on")
+
+%% 2.3.1AB
+
+figure(4)
+new_temps = temps(1:500)
+new_omega_ref = omega_ref(1:500)
+new_omega = omega(1:500)
+new_wh = wh(501:1000)
+plot(new_temps, new_omega_ref, new_temps, new_omega, new_temps, new_wh);
+title("Experiment vs Simulation Performances")
+legend("\omega_{h}^{ref}", "\omega_{h}^{experiment}", "\omega_{h}^{simulation}")
+xlabel("Time (s)")
+ylabel("\omega(rad/s)")
+xlim([0, 1])
+grid("on")
+
+%% 2.3.1B
+figure(3)
+plot(temps, omega_ref, temps, omega);
+title("Speed vs Reference Signal, Sampling Period 50ms")
+legend("\omega_{h}^{ref}", "\omega_{h}")
+xlabel("Time (s)")
+ylabel("\omega(rad/s)")
+grid("on")
 
 %% 3.2.3
-figure(3);
+figure(6);
 plot(temps, theta);
 title("Free response \theta(0)=30°")
 xlabel("time[s]")
@@ -41,7 +79,7 @@ sys = ss(A,B, C, D);
 
 temps0=temps - 11.22;
 
-figure(5)
+figure(7)
 plot(t,Y, temps0,theta)
 title("Free response \theta(0)=30° comparison")
 xlabel("time[s]")
