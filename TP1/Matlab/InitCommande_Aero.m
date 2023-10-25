@@ -111,7 +111,7 @@ Te2 = 0.02; % 20ms
 % intermediaires
 theta_max = pi/4;
 omega_h_max=500;
-q= 7; % define here the weight
+q= 14; % define here the weight
 Q=C.'*q/theta_max^2*C;
 R=1/omega_h_max^2;
 
@@ -147,7 +147,6 @@ r=1; % define here the weight
 Qn=[1/theta_max 0;0 1/zi_max];
 Q=Ca.'*Qn*[q 0;0 z]*Qn*Ca;
 R=r/omega_h_max^2;
-
 
 K_lqi = lqr(Aa, B1a, Q, R);  % Gain du retour d'état avec action intégrale, vecteur (1x3)
 

@@ -62,3 +62,77 @@ sim("SimulateurNL_AERO_Cmd_LQ")
 run("InitCommande_Aero")
 Te1 = 0.0005;
 sim("SimulateurNL_AERO_Cmd_LQI")
+
+%% 5.1
+run("InitCommande_Aero")
+load("DATA/5.1.mat")
+
+temps_fixed = temps(1:10:7501);
+
+figure(1)
+subplot(1,2,1);
+plot(temps_fixed,theta, temps_fixed,theta_ref)
+title("LQ real control without integrator")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("\theta","\theta_{ref}")
+grid("on")
+subplot(1,2,2);
+plot(temps,omega_ref)
+xlabel("time[s]")
+ylabel("\omega_{ref} [ras/s]")
+grid("on")
+
+Te1 = 0.0005;
+sim("SimulateurNL_AERO_Cmd_LQ")
+
+figure(2)
+plot(temps_fixed,theta, temps_fixed,theta_ref, temps_sim(1:5000*15/25+1), theta_sim(1:5000*15/25+1))
+title("LQR comparison")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("physic \theta","\theta_{ref}", "sim \theta")
+grid("on")
+
+%% 5.2
+run("InitCommande_Aero")
+load("DATA/5.2.mat")
+
+temps_fixed = temps(1:10:7501);
+
+figure(1)
+subplot(1,2,1);
+plot(temps_fixed,theta, temps_fixed,theta_ref)
+title("LQ real control without integrator")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("\theta","\theta_{ref}")
+grid("on")
+subplot(1,2,2);
+plot(temps,omega_ref)
+xlabel("time[s]")
+ylabel("\omega_{ref} [ras/s]")
+grid("on")
+
+Te1 = 0.0005;
+sim("SimulateurNL_AERO_Cmd_LQI")
+
+figure(2)
+plot(temps_fixed,theta, temps_fixed,theta_ref, temps_sim(1:5000*15/25+1), theta_sim(1:5000*15/25+1))
+title("LQI simulator and phisical system comparison")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("physical \theta","\theta_{ref}", "sim \theta")
+grid("on")
+
+thetaI = theta;
+load("DATA/5.1.mat")
+
+figure(3)
+plot(temps_fixed, theta, temps_fixed, thetaI, temps_fixed, theta_ref)
+title("LQR and LQI comparison")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("LQR \theta", "LQI \theta", "\theta_{ref}")
+grid("on")
+
