@@ -175,6 +175,12 @@ Csys = C;% Matrice C du modèle linéaire (de Sortie)
 % Observateur Matrix
 L = place(Asys.', Csys.', p).'; % Gain de l'observateur, vecteur (1x2) à calculer avec "place"
 
+Ao = [A -B*K_lq; L*C A-L*C-B*K_lq];
+Bo = [B;B]* M_lq;
+Co = [C 0 0];
+Do = 0;
+syso = ss(Ao, Bo, Co, Do);
+
 %------------------------------------------------------------------------
 % Correcteur PID
 %------------------------------------------------------------------------

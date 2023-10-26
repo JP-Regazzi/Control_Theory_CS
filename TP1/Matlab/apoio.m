@@ -174,3 +174,111 @@ ylabel("\theta[rad]")
 legend("LQR \theta", "LQI \theta", "\theta_{ref}")
 grid("on")
 
+%% 6.1.4
+
+[ys,ts, xs] = step(syso);
+
+figure(3)
+subplot(1,2,1)
+plot(ts, ys)
+title("Obsever step simulation");
+xlabel("time[s]");
+ylabel("\theta[rad]");
+grid on;
+
+subplot(1,2,2)
+plot(ts, xs);
+xlabel("time[s]");
+legend("x_1", "x_2");
+grid on;
+
+%% 6.2
+run("InitCommande_Aero")
+load("DATA/6.2.1_ganho14.mat")
+
+temps_fixed1 = temps(1:10:15001);
+
+figure(1)
+subplot(1,2,1);
+plot(temps_fixed1, theta, temps_fixed1, theta_ref)
+title("LQ real control with observer and without integrator")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("\theta","\theta_{ref}")
+grid("on")
+subplot(1,2,2);
+plot(temps,omega_ref)
+xlabel("time[s]")
+ylabel("\omega_{ref} [ras/s]")
+grid("on")
+
+theta1 = theta;
+temps_fixed2 = temps(1:10:7501);
+load("DATA/5.1.mat")
+
+figure(3)
+plot(temps_fixed2, theta, temps_fixed1(1:751), theta1(1:751), temps_fixed2, theta_ref)
+title("LQR comparison between with and without observer")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("without observer \theta", "with observer \theta", "\theta_{ref}")
+grid("on")
+
+%% 6.3
+
+run("InitCommande_Aero")
+load("DATA/6.3_q10_z4.mat")
+
+temps_fixed1 = temps(1:10:15001);
+
+figure(1)
+subplot(1,2,1);
+plot(temps_fixed1, theta, temps_fixed1, theta_ref)
+title("LQI real control with observer and integrator")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("\theta","\theta_{ref}")
+grid("on")
+subplot(1,2,2);
+plot(temps,omega_ref)
+xlabel("time[s]")
+ylabel("\omega_{ref} [ras/s]")
+grid("on")
+
+thetaLQIO = theta;
+load("DATA/5.2.mat")
+temps_fixed2 = temps(1:10:7501);
+thetaLQI = theta;
+
+load("DATA/6.2.1_ganho14.mat")
+thetaLQRO = theta;
+
+figure(2)
+plot(temps_fixed2, thetaLQI, temps_fixed1(1:751), thetaLQIO(1:751), temps_fixed1(1:751), thetaLQRO(1:751), temps_fixed1(1:751), theta_ref(1:751))
+title("LQR comparison between experiments")
+xlabel("time[s]")
+ylabel("\theta[rad]")
+legend("LQI without observer \theta", "LQI with observer \theta", "LQR with observer \theta", "\theta_{ref}")
+grid("on")
+
+%% 6.4.1
+s = tf('s');  % Define the Laplace variable 's'
+Tol = K_lq*inv(s*eye(2)-A)*B
+figure(1);
+nyquistplot(Tol);
+grid on;
+minorgrid on;
+figure(2);
+bodeplot(Tol);
+grid on;
+minorgrid on;
+
+%% 6.4.2
+s = tf('s');  % Define the Laplace variable 's'
+Tol = [0 0 K_lq]*inv(s*eye(4)-Ao)*Bo
+figure(1);
+nyquistplot(Tol);
+grid on;
+figure(2);
+bodeplot(Tol);
+grid on;
