@@ -48,7 +48,7 @@ xlim([0, 1])
 grid("on")
 
 %% 2.3.1B
-figure(3)
+figure(5)
 plot(temps, omega_ref, temps, omega);
 title("Speed vs Reference Signal, Sampling Period 50ms")
 legend("\omega_{h}^{ref}", "\omega_{h}")
@@ -56,8 +56,40 @@ xlabel("Time (s)")
 ylabel("\omega(rad/s)")
 grid("on")
 
-%% 3.2.3
+
+%% 3.1.3
+figure(5)
+plot(temps, cmd_vp, temps, omega, temps, theta);
+title("Measurements related to the equilibrium points")
+legend("v_{p} (Volts)", "\omega (rad)", "\theta (deg)")
+xlabel("Time (s)")
+grid("on")
+
+%% 3.1.4
+figure(5)
+x = -250:0.1:250;
+plot(x, Kt*x);
+grid("on");
+
+hold on
+plot(omega_h, F0_h, 'ro') % 'ro' represents red circles
+legend('linear approximation', 'F_{0}'); % Add legends for the line and circle
+xlim([-250, 250]);
+xlabel("\omega_{h} (rad/s)")
+ylabel("F_{0}")
+hold off
+
+%% 3.2.2
 figure(6);
+plot(temps, theta);
+title("Free response \theta(0)=30°")
+xlabel("time[s]")
+ylabel("theta[rad]")
+grid("on")
+
+
+%% 3.2.3
+figure(7);
 plot(temps, theta);
 title("Free response \theta(0)=30°")
 xlabel("time[s]")
@@ -79,12 +111,30 @@ sys = ss(A,B, C, D);
 
 temps0=temps - 11.22;
 
-figure(7)
+figure(8)
 plot(t,Y, temps0,theta)
 title("Free response \theta(0)=30° comparison")
 xlabel("time[s]")
 ylabel("theta[rad]")
 legend("Model response","Real response")
+grid("on")
+
+
+%% 3.3.1
+figure(9)
+plot(temps_sim ,theta_sim)
+title("Simulation of step response")
+xlabel("Time (s)")
+ylabel("\theta (rad)")
+grid("on")
+
+%% 3.3.2
+
+figure(10)
+plot(temps_sim ,theta_sim)
+title("Simulation of step response")
+xlabel("Time (s)")
+ylabel("\theta (rad)")
 grid("on")
 
 %% 4.2.2
